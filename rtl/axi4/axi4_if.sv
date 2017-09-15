@@ -54,8 +54,8 @@ interface axi4_if #(
 	// ** 
 	// * Read Address channel
 	// ** 
-	bit[(AXI4_ID_WIDTH-1):0]		ARID;
 	bit[(AXI4_ADDRESS_WIDTH-1):0]	ARADDR;
+	bit[(AXI4_ID_WIDTH-1):0]		ARID;
 	bit[7:0]						ARLEN;
 	bit[2:0]						ARSIZE;
 	bit[1:0]						ARBURST;
