@@ -7,13 +7,13 @@ import chisel3.UInt
 import chisel3.core.Bundle
 import chisel3.fromIntToWidth
 import chisel3.fromtIntToLiteral
-import chisellib.ParameterizedBundleUtil
-import chisellib.ParametersUtil
-import chisellib.ParameterizedBundleUtil
-import chisellib.ParameterizedBundleUtil
+import chisellib.ParameterizedBundle
+import chisellib.ParametersBase
+import chisellib.ParameterizedBundle
+import chisellib.ParameterizedBundle
 import chisel3.core.Wire
-import chisellib.ParameterizedBundleUtil
-import chisellib.ParameterizedBundleUtil
+import chisellib.ParameterizedBundle
+import chisellib.ParameterizedBundle
 
 class Wishbone(val p : Wishbone.Parameters) extends Bundle {
 
@@ -32,9 +32,9 @@ class Parameters (
     val DATA_WIDTH  :  Int=32,
     val TGA_WIDTH   :  Int=1,
     val TGD_WIDTH   :  Int=1,
-    val TGC_WIDTH   :  Int=1) extends ParametersUtil { }
+    val TGC_WIDTH   :  Int=1) extends ParametersBase { }
 
-	class RspData(val p : Wishbone.Parameters) extends ParameterizedBundleUtil(p) {
+	class RspData(override val p : Wishbone.Parameters) extends ParameterizedBundle(p) {
 	  
 	val DAT_R = Input(UInt(p.DATA_WIDTH.W))
 	val TGD_R = Input(UInt(p.TGD_WIDTH.W))
@@ -60,9 +60,9 @@ class Parameters (
   }	
 	}
 
-	class ReqData(val p : Wishbone.Parameters) extends ParameterizedBundleUtil(p) {
-	  	val ADR = Output(UInt(p.ADDR_WIDTH.W))
-	val TGA = Output(UInt(p.TGA_WIDTH.W))
+	class ReqData(override val p : Wishbone.Parameters) extends ParameterizedBundle(p) {
+    val ADR = Output(UInt(p.ADDR_WIDTH.W))
+    val TGA = Output(UInt(p.TGA_WIDTH.W))
 	val CTI = Output(UInt(3.W))
 	val BTE = Output(UInt(2.W))
 	val DAT_W = Output(UInt(p.DATA_WIDTH.W))

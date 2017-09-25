@@ -1,12 +1,17 @@
+/****************************************************************************
+ * AXI4.scala
+ * 
+ * Chisel definition of an AXI4 protocol interface
+ ****************************************************************************/
 package std_protocol_if
 
 import chisellib._
-import chisellib.ParametersUtil
-import chisellib.ParameterizedBundleUtil
+import chisellib.ParametersBase
+import chisellib.ParameterizedBundle
 import chisel3._
 
 
-class AXI4(p : AXI4.Parameters) extends ParameterizedBundleUtil(p) {
+class AXI4(override val p : AXI4.Parameters) extends ParameterizedBundle(p) {
   val awreq = new AXI4.AWReq(p)
   val awready = Input(Bool())
   
@@ -21,18 +26,17 @@ class AXI4(p : AXI4.Parameters) extends ParameterizedBundleUtil(p) {
   
   val rresp = new AXI4.RRsp(p)
   val rready = Output(Bool())
-  
 }
 
 object AXI4 {
   class Parameters (
-      val ADDRESS_WIDTH : Int = 32,
+      val ADDR_WIDTH : Int = 32,
       val DATA_WIDTH : Int = 128,
       val ID_WIDTH : Int = 4
-      ) extends ParametersUtil { }
+      ) extends ParametersBase { }
   
-  class AWReq(val p : AXI4.Parameters) extends ParameterizedBundleUtil(p) {
-    val AWADDR = Output(UInt(p.ADDRESS_WIDTH.W))
+  class AWReq(override val p : AXI4.Parameters) extends ParameterizedBundle(p) {
+    val AWADDR = Output(UInt(p.ADDR_WIDTH.W))
     val AWID = Output(UInt(p.ID_WIDTH.W))
     val AWLEN = Output(UInt(8.W))
     val AWSIZE = Output(UInt(3.W))
@@ -45,21 +49,21 @@ object AXI4 {
     val AWVALID = Output(Bool())
   }
   
-  class WReq(val p : AXI4.Parameters) extends ParameterizedBundleUtil(p) {
+  class WReq(override val p : AXI4.Parameters) extends ParameterizedBundle(p) {
     val WDATA = Output(UInt(p.DATA_WIDTH.W))
     val WSTRB = Output(UInt((p.DATA_WIDTH/8).W))
     val WLAST = Output(Bool())
     val WVALID = Output(Bool())
   }
   
-  class BRsp(val p : AXI4.Parameters) extends ParameterizedBundleUtil(p) {
+  class BRsp(override val p : AXI4.Parameters) extends ParameterizedBundle(p) {
     val BID = Input(UInt(p.ID_WIDTH.W))
     val BRESP = Input(UInt(2))
     val BVALID = Input(Bool())
   }
   
-  class ARReq(val p : AXI4.Parameters) extends ParameterizedBundleUtil(p) {
-    val ARADDR = Output(UInt(p.ADDRESS_WIDTH.W))
+  class ARReq(override val p : AXI4.Parameters) extends ParameterizedBundle(p) {
+    val ARADDR = Output(UInt(p.ADDR_WIDTH.W))
     val ARID = Output(UInt(p.ID_WIDTH.W))
     val ARLEN = Output(UInt(8.W))
     val ARSIZE = Output(UInt(3.W))
@@ -72,7 +76,7 @@ object AXI4 {
     val ARVALID = Output(Bool())
   }
   
-  class RRsp(val p : AXI4.Parameters) extends ParameterizedBundleUtil(p) {
+  class RRsp(override val p : AXI4.Parameters) extends ParameterizedBundle(p) {
     val RID = Input(UInt(p.ID_WIDTH.W))
     val RDATA = Input(UInt(p.DATA_WIDTH.W))
     val RRESP = Input(UInt(2.W))
