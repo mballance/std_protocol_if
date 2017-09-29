@@ -26,6 +26,21 @@ class AXI4(override val p : AXI4.Parameters) extends ParameterizedBundle(p) {
   
   val rresp = new AXI4.RRsp(p)
   val rready = Output(Bool())
+  
+  def tieoff() {
+    awready := Bool(false)
+    brsp.tieoff()
+    arready := Bool(false)
+    rresp.tieoff()
+  }
+  
+  def tieoff_flipped() {
+    awreq.tieoff_flipped()
+    arreq.tieoff_flipped()
+    wreq.tieoff_flipped()
+    bready := Bool(false)
+    rready := Bool(false)
+  }
 }
 
 object AXI4 {
@@ -47,6 +62,20 @@ object AXI4 {
     val AWQOS = Output(UInt(4.W))
     val AWREGION = Output(UInt(4.W))
     val AWVALID = Output(Bool())
+   
+    def tieoff_flipped() {
+      AWADDR := 0.asUInt()
+      AWID := 0.asUInt()
+      AWLEN := 0.asUInt()
+      AWSIZE := 0.asUInt()
+      AWBURST := 0.asUInt()
+      AWLOCK := Bool(false)
+      AWCACHE := 0.asUInt()
+      AWPROT := 0.asUInt()
+      AWQOS := 0.asUInt()
+      AWREGION := 0.asUInt()
+      AWVALID := Bool(false)
+    }
   }
   
   class WReq(override val p : AXI4.Parameters) extends ParameterizedBundle(p) {
@@ -54,12 +83,25 @@ object AXI4 {
     val WSTRB = Output(UInt((p.DATA_WIDTH/8).W))
     val WLAST = Output(Bool())
     val WVALID = Output(Bool())
+    
+    def tieoff_flipped() {
+      WDATA := 0.asUInt()
+      WSTRB := 0.asUInt()
+      WLAST := 0.asUInt()
+      WVALID := 0.asUInt()
+    }    
   }
   
   class BRsp(override val p : AXI4.Parameters) extends ParameterizedBundle(p) {
     val BID = Input(UInt(p.ID_WIDTH.W))
     val BRESP = Input(UInt(2))
     val BVALID = Input(Bool())
+    
+    def tieoff() {
+      BID := 0.asUInt()
+      BRESP := 0.asUInt()
+      BVALID := Bool(false)
+    }    
   }
   
   class ARReq(override val p : AXI4.Parameters) extends ParameterizedBundle(p) {
@@ -74,6 +116,20 @@ object AXI4 {
     val ARQOS = Output(UInt(4.W))
     val ARREGION = Output(UInt(4.W))
     val ARVALID = Output(Bool())
+    
+    def tieoff_flipped() {
+      ARADDR := 0.asUInt()
+      ARID := 0.asUInt()
+      ARLEN := 0.asUInt()
+      ARSIZE := 0.asUInt()
+      ARBURST := 0.asUInt()
+      ARLOCK := Bool(false)
+      ARCACHE := 0.asUInt()
+      ARPROT := 0.asUInt()
+      ARQOS := 0.asUInt()
+      ARREGION := 0.asUInt()
+      ARVALID := Bool(false)
+    }    
   }
   
   class RRsp(override val p : AXI4.Parameters) extends ParameterizedBundle(p) {
@@ -82,6 +138,14 @@ object AXI4 {
     val RRESP = Input(UInt(2.W))
     val RLAST = Input(Bool())
     val RVALID = Input(Bool())
+    
+    def tieoff() {
+      RID    := 0.asUInt()
+      RDATA  := 0.asUInt()
+      RRESP  := 0.asUInt()
+      RLAST  := Bool(false)
+      RVALID := Bool(false)
+    }    
   }
 }
 
