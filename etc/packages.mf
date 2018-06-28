@@ -1,0 +1,4 @@
+
+chiselscripts@http://github.com/mballance/chiselscripts.git
+chisellib@http://github.com/mballance/chisellib.git
+
