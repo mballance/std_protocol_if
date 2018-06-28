@@ -21,9 +21,15 @@ RULES := 1
 
 ifeq (true,$(PHASE2))
 build : $(STD_PROTOCOL_IF_JAR)
+
+clean :
+	$(Q)rm -rf $(LIB_DIR)
 else
 build : $(std_protocol_if_deps)
 	$(MAKE) -f $(STD_PROTOCOL_IF_SCRIPTS_DIR)/ivpm.mk PHASE2=true build
+
+clean : clean_std_protocol_if
+
 endif
 
 $(STD_PROTOCOL_IF_JAR) : $(STD_PROTOCOL_IF_SRC) $(CHISELLIB_JAR)
