@@ -32,7 +32,7 @@ clean : clean_std_protocol_if
 
 endif
 
-$(STD_PROTOCOL_IF_JAR) : $(STD_PROTOCOL_IF_SRC) $(CHISELLIB_JAR)
+$(STD_PROTOCOL_IF_JAR) : $(STD_PROTOCOL_IF_SRC) $(STD_PROTOCOL_IF_DEPS)
 	$(Q)if test ! -d `dirname $@`; then mkdir -p `dirname $@`; fi
 	$(Q)$(DO_CHISELC)
 
