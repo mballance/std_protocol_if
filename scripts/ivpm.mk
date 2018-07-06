@@ -23,12 +23,13 @@ ifeq (true,$(PHASE2))
 build : $(STD_PROTOCOL_IF_JAR)
 
 clean :
-	$(Q)rm -rf $(LIB_DIR)
+	$(Q)rm -rf $(STD_PROTOCOL_IF_DIR)/build $(LIB_DIR)
 else
 build : $(std_protocol_if_deps)
 	$(MAKE) -f $(STD_PROTOCOL_IF_SCRIPTS_DIR)/ivpm.mk PHASE2=true build
 
-clean : clean_std_protocol_if
+clean : $(std_protocol_if_clean_deps)
+	$(MAKE) -f $(STD_PROTOCOL_IF_SCRIPTS_DIR)/ivpm.mk PHASE2=true clean
 
 endif
 
