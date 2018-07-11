@@ -94,7 +94,7 @@ object AXI4 {
   
   class BRsp(override val p : AXI4.Parameters) extends ParameterizedBundle(p) {
     val BID = Input(UInt(p.ID_WIDTH.W))
-    val BRESP = Input(UInt(2))
+    val BRESP = Input(UInt(2.W))
     val BVALID = Input(Bool())
     
     def tieoff() {

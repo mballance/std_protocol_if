@@ -89,8 +89,17 @@ class Parameters (
 	}
 	
 	def park() {
+	  ADR := 0.asUInt()
+	  TGA := 0.asUInt()
+	  CTI := 0.asUInt()
+	  BTE := 0.asUInt()
+	  DAT_W := 0.asUInt()
+	  TGD_W := 0.asUInt()
 	  CYC := Bool(false)
+	  TGC := 0.asUInt()
+	  SEL := 0.asUInt()
 	  STB := Bool(false)
+	  WE := Bool(false)
 	}
 	
   override def cloneType() : this.type = {
