@@ -1,3 +1,4 @@
 name=std_protocol_if
 version=0.0.1
+rootvar=STD_PROTOCOL_IF
 
